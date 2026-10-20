@@ -172,3 +172,43 @@ ui.grid.addEventListener("click", (event) => {
   } else favoriteButton(button, character);
 });
 loadCharacters();
+
+// Persistencia: guardamos una copia de los personajes, no solo sus identificadores.
+// Así la colección se puede consultar sin volver a pedir esos datos a la API.
+const STORAGE_KEY = "ciudadela-favoritos-v1";
+function storageWarning(message) {
+  ui.warning.textContent = message;
+  ui.warning.hidden = !message;
+}
+function validFavorite(p) {
+  return p && Number.isInteger(p.id) && p.id > 0 &&
+    typeof p.name === "string" && typeof p.species === "string" &&
+    typeof p.gender === "string" && ["Alive", "Dead", "unknown"].includes(p.status) &&
+    typeof p.image === "string" && p.image.startsWith(API + "avatar/") &&
+    p.location && typeof p.location.name === "string";
+}
+function readFavorites() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    if (!Array.isArray(saved) || !saved.every(validFavorite)) throw new Error("Datos guardados inválidos");
+    favorites.clear();
+    saved.forEach((p) => favorites.set(p.id, p));
+    ui.favoriteCount.textContent = favorites.size;
+    storageWarning("");
+  } catch (error) {
+    storageWarning("No pudimos leer los favoritos guardados. Puedes usar una colección temporal en esta sesión.");
+  }
+}
+function saveFavorites() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify([...favorites.values()]));
+    storageWarning("");
+  } catch (error) {
+    storageWarning("El navegador no permitió guardar los favoritos. Se conservarán solo durante esta sesión.");
+  }
+}
+// Este manejador se ejecuta después de actualizar la colección en memoria.
+ui.grid.addEventListener("click", (event) => {
+  if (event.target.closest("button[data-id]")) saveFavorites();
+});
+readFavorites();
