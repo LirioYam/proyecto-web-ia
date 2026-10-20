@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explora el multiverso de Rick and Morty: busca personajes, filtra y guarda tus favoritos.">
+  <title>Archivo de la Ciudadela | Explorador Rick and Morty</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#explorador">Saltar al explorador</a>
+  <header class="site-header wrap">
+    <a class="brand" href="./" aria-label="Archivo de la Ciudadela, inicio"><span class="brand-mark" aria-hidden="true">◎</span><span>ARCHIVO DE<br><strong>LA CIUDADELA</strong></span></a>
+    <span class="header-note">EXPLORADOR INTERDIMENSIONAL <span aria-hidden="true">↗</span></span>
+  </header>
+  <main class="wrap">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="signal" aria-hidden="true"></span> RICK AND MORTY / ARCHIVO DE PERSONAJES</p>
+        <h1 id="hero-title">El multiverso,<br>a un <em>portal.</em></h1>
+        <p class="hero-description">Cada dimensión tiene una historia. Encuentra a sus personajes y guarda a quienes quieras volver a encontrar.</p>
+        <a class="explore-link" href="#explorador">Abrir el archivo <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="portal-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="portal-core">C<span>137</span></div><span class="portal-label">COORDENADAS DESCONOCIDAS</span><span class="portal-cross">+</span></div>
+    </section>
+    <section id="explorador" aria-labelledby="archive-title">
+      <div class="section-heading"><div><p class="eyebrow">01 / EXPLORAR</p><h2 id="archive-title">Habitantes del multiverso</h2></div><span class="data-note">Datos de Rick and Morty API</span></div>
+      <div class="view-switch" role="group" aria-label="Colección de personajes">
+        <button id="all-view" type="button" class="view-button active" aria-pressed="true">Todos los personajes</button>
+        <button id="favorites-view" type="button" class="view-button" aria-pressed="false">Mis favoritos <span id="favorite-count" class="counter">0</span></button>
+      </div>
+      <form id="search-form" class="search-panel" role="search">
+        <div class="field search-field"><label for="search">Nombre del personaje</label><input id="search" type="search" placeholder="Prueba con Rick, Morty, Summer…" maxlength="100" autocomplete="off"></div>
+        <div class="field"><label for="status">Estado</label><select id="status"><option value="">Todos los estados</option><option value="alive">Vivo</option><option value="dead">Muerto</option><option value="unknown">Desconocido</option></select></div>
+        <div class="field"><label for="species">Especie</label><select id="species"><option value="">Todas las especies</option><option value="Human">Humano</option><option value="Alien">Alien</option><option value="Humanoid">Humanoide</option><option value="Robot">Robot</option><option value="Animal">Animal</option><option value="Mythological Creature">Criatura mitológica</option><option value="Poopybutthole">Poopybutthole</option><option value="Cronenberg">Cronenberg</option><option value="Disease">Enfermedad</option><option value="unknown">Desconocida</option></select></div>
+        <button class="primary-button" type="submit">Buscar <span aria-hidden="true">↗</span></button>
+        <button id="clear" type="button" class="text-button">Limpiar filtros</button>
+      </form>
+      <p id="storage-warning" class="notice" role="status" hidden></p>
+      <div class="results-heading"><p id="results-count">El archivo está listo para conectar.</p><span class="tiny-label">EXPLORA · DESCUBRE · GUARDA</span></div>
+      <div id="feedback" class="feedback" role="status" aria-live="polite"><p id="message">Cargando el explorador…</p><button id="retry" type="button" class="primary-button" hidden>Reintentar consulta</button></div>
+      <div id="characters" class="character-grid" aria-label="Resultados de personajes" aria-busy="false"></div>
+      <nav id="pagination" class="pagination" aria-label="Páginas de resultados" hidden><button id="previous" type="button" class="secondary-button">← Anterior</button><span id="page-label"></span><button id="next" type="button" class="secondary-button">Siguiente →</button></nav>
+      <noscript><p class="notice">Activa JavaScript para consultar la API y utilizar los favoritos.</p></noscript>
+    </section>
+  </main>
+  <footer class="site-footer wrap"><span>ARCHIVO DE LA CIUDADELA <span class="footer-divider">/</span> Proyecto académico · LirioYam</span><a href="https://rickandmortyapi.com/documentation" target="_blank" rel="noopener noreferrer">Fuente de datos ↗</a><a href="https://github.com/LirioYam/proyecto-web-ia" target="_blank" rel="noopener noreferrer">Ver proyecto en GitHub ↗</a></footer>
+</body>
+</html>
