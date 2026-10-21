@@ -111,7 +111,7 @@ Realizadas desde la aplicación en GitHub Pages el 20 de octubre de 2026:
 | Buscar un nombre inexistente en favoritos | Cero favoritos coincidentes, sin perder los dos guardados. |
 | Ancho de 390 px | Interfaz adaptable sin desbordamiento horizontal. |
 
-Los conteos dependen de los datos de la API y pueden cambiar. El manejo de desconexión, timeout y almacenamiento no disponible se revisó en el código; no se simuló una desconexión durante estas pruebas. Las pruebas de la mejora se añadirán después de desplegarla.
+Los conteos dependen de los datos de la API y pueden cambiar. El manejo de desconexión, timeout y almacenamiento no disponible se revisó en el código; no se simuló una desconexión durante estas pruebas. Las pruebas de la mejora publicada se documentan en la sección final de este README.
 
 ## Guía para la demostración
 
@@ -153,3 +153,25 @@ Respuesta aplicada al proyecto: `applyFilters()` lee nombre, estado y especie y 
 > Explícame cómo guardamos y recuperamos los favoritos con localStorage y cómo funciona la mejora de orden alfabético A-Z y Z-A. Señala qué funciones intervienen y qué debo entender para explicarlo en clase.
 
 Respuesta aplicada al proyecto: `saveFavorites()` convierte los valores del Map a JSON y los guarda; `readFavorites()` los lee, valida y reconstruye el Map. `visibleCharacters()` elige la página de la API o los favoritos filtrados. `orderedCharacters()` copia el arreglo antes de sort, compara con localeCompare y utiliza 1 o -1 para invertir el orden. Lo esencial para clase: memoria y almacenamiento son distintos; JSON permite almacenar objetos como texto; sort modifica el arreglo y por eso se copia; el orden del catálogo se limita a la página cargada.
+
+## Verificación final de la mejora publicada
+
+Comprobaciones realizadas en GitHub Pages el 20 de octubre de 2026, después de fusionar el PR #3:
+
+| Prueba | Resultado observado |
+| --- | --- |
+| A–Z en la primera página de la API | Comienza con Abadango Cluster Princess, Abradolf Lincler y Adjudicator Rick; conserva 20 tarjetas. |
+| Z–A en esa página | Comienza con Summer Smith, Rick Sanchez y Morty Smith. |
+| Volver al orden original | Restaura Rick Sanchez, Morty Smith, Summer Smith y Beth Smith al principio. |
+| A–Z en favoritos Rick/Morty | Morty Smith antes de Rick Sanchez. |
+| Z–A en esos favoritos | Rick Sanchez antes de Morty Smith. |
+| Quitar ambos favoritos | Contador 0 y mensaje de colección vacía. Se retiraron los datos de prueba. |
+| Interfaz final a 390 px | Selector visible y contenido de 375 px, sin desbordamiento horizontal. |
+
+### Corrección de actualización de recursos
+
+Tras el primer despliegue de la mejora, Actions indicó éxito y main contenía orderedCharacters, pero la página aún mostraba la versión anterior del JavaScript. Se modificó index.html desde GitHub web para cargar `script.js?v=2` y se publicó de nuevo. Se verificó que la página cargaba esa referencia y mostraba el selector. Esta corrección quedó registrada en el historial; en futuras actualizaciones de JavaScript puede incrementarse esa versión cuando corresponda.
+
+### Estado de entrega
+
+Aplicación publicada y probada; cuatro archivos requeridos; más de seis commits con avances reales; Issues #1 y #2 cerrados con seguimiento; rama codex/orden-alfabetico y PR #3 fusionado. Desarrollo individual atribuido a LirioYam. La demostración en clase corresponde a la autora.
