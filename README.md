@@ -128,10 +128,6 @@ Proyecto académico sin afiliación oficial con Rick and Morty. Los personajes y
 
 Los siguientes textos organizan los objetivos de cada etapa. Se incorporan en esta actualización documental; no se presentan como una transcripción literal de instrucciones ejecutadas previamente.
 
-**Aclaración sobre esta actualización:**
-
-> Incluye los siguientes prompts. No vuelvas a ejecutar sus instrucciones ni reconstruyas la aplicación: en este mensaje solo estoy pidiendo actualizar la documentación.
-
 ### PROMPT 1: Estructura, diseño y consulta de personajes
 
 > Quiero crear una aplicación llamada Archivo de la Ciudadela para explorar personajes de toda la serie Rick and Morty. Usa HTML, CSS y JavaScript sin frameworks y consulta los datos reales de Rick and Morty API mediante fetch. Revisa primero la documentación oficial para usar correctamente sus parámetros y respuestas.
