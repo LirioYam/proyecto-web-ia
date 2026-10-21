@@ -76,14 +76,6 @@ El selector está fuera del formulario de búsqueda: limpiar filtros no cambia l
 
 La IA asistió con el diseño, el código, las explicaciones y la revisión. La autora decidió trabajar de forma individual y exigió operar exclusivamente en GitHub web. No se atribuyen a la autora cambios manuales que no haya declarado. La modalidad de suscripción ChatGPT Plus o Claude Pro exigida por la tarea debe ser acreditada por la autora; el repositorio no la verifica.
 
-### Tres instrucciones importantes del prompt inicial
-
-Estos fragmentos se enviaron juntos en la solicitud inicial. Se registran como tres instrucciones importantes, sin inventar tres mensajes separados:
-
-1. **Comprender la tarea:** “Ayúdame a realizar la tarea del PDF adjunto. Léelo completo antes de actuar.” Permitió identificar funciones, entregables y restricciones antes de programar.
-2. **Respetar el método:** “Si puedes, realiza las operaciones del proyecto desde esa interfaz: edición de archivos, commits, Issues, ramas, Pull Requests y configuración de GitHub Pages.” Determinó la edición y el seguimiento desde GitHub web.
-3. **Aprender con cada avance:** “Quiero trabajar con eficiencia y aprender. Explica brevemente cada avance funcional y continúa sin pedir confirmación por cada clic rutinario.” Dio lugar al desarrollo por etapas y a explicaciones sobre fetch, favoritos y ordenación.
-
 ### Respuesta de IA que se corrigió
 
 El primer avance de JavaScript generado con ayuda de IA mantenía los favoritos únicamente en un Map. Esa versión no cubría todavía la persistencia requerida: una recarga reconstruía el Map vacío. En el siguiente commit se amplió el código con lectura, validación y escritura de localStorage. Se comprobó guardando Rick y Morty y recargando: ambos siguieron en la colección. No bastaba con que el corazón cambiara de color.
@@ -132,27 +124,57 @@ Preguntas clave: HTML organiza el contenido; CSS define su presentación; JavaSc
 
 Proyecto académico sin afiliación oficial con Rick and Morty. Los personajes y sus imágenes corresponden a sus respectivos titulares.
 
-## Registro de tres prompts reales utilizados
+## Prompts de desarrollo
 
-Este registro reúne el encargo inicial y las dos preguntas posteriores enviadas por la autora durante el desarrollo. Los fragmentos de contexto anteriores pertenecen al primer encargo.
+Los siguientes textos organizan los objetivos de cada etapa. Se incorporan en esta actualización documental; no se presentan como una transcripción literal de instrucciones ejecutadas previamente.
 
-### Prompt 1: realizar la tarea respetando GitHub web
+**Aclaración sobre esta actualización:**
 
-> Ayúdame a realizar la tarea del PDF adjunto. Léelo completo antes de actuar.
+> Incluye los siguientes prompts. No vuelvas a ejecutar sus instrucciones ni reconstruyas la aplicación: en este mensaje solo estoy pidiendo actualizar la documentación.
 
-El mismo encargo incluyó la restricción de crear y modificar el código únicamente en GitHub web, inspeccionar los avances y explicar cada avance funcional. Resultado: lectura previa, revisión del repositorio y desarrollo por etapas con commits, Issues, rama, PR y Pages.
+### PROMPT 1: Estructura, diseño y consulta de personajes
 
-### Prompt 2: consultas, buscador y errores
+> Quiero crear una aplicación llamada Archivo de la Ciudadela para explorar personajes de toda la serie Rick and Morty. Usa HTML, CSS y JavaScript sin frameworks y consulta los datos reales de Rick and Morty API mediante fetch. Revisa primero la documentación oficial para usar correctamente sus parámetros y respuestas.
+>
+> Organiza el proyecto en index.html, style.css, script.js y README.md. Al abrir la página deben aparecer al menos 10 personajes, cada uno con imagen, nombre y datos como estado, especie, género y ubicación. No escribas personajes manualmente: la información debe venir de la API.
+>
+> Quiero un diseño relacionado con la serie, con tarjetas organizadas, colores que permitan leer bien y una interfaz en español. Debe adaptarse al celular y la computadora sin que los controles o las tarjetas se salgan de la pantalla. Usa etiquetas claras en los campos y botones que también puedan utilizarse con el teclado.
+>
+> Agrega búsqueda por nombre y filtros por estado y especie. Deben funcionar juntos y consultar el catálogo de la API, no solamente los personajes que ya aparecen en pantalla. Incluye botones para avanzar y retroceder entre páginas. Cuando cambie la búsqueda o los filtros, vuelve a la primera página; al cambiar de página conserva los criterios seleccionados.
+>
+> Haz los cambios directamente desde GitHub web y guarda avances reales con mensajes de commit claros. Explícame brevemente cómo se conectan el HTML, el CSS y el JavaScript y cómo llegan los datos de la API a las tarjetas.
 
-> Explícame cómo utiliza fetch() nuestra aplicación para consultar la API de Rick and Morty, cómo se combina la búsqueda con los filtros y qué ocurre cuando no hay resultados o falla la consulta. Usa ejemplos del código del proyecto.
+**Propósito:** Definir la primera versión: estructura de archivos, diseño accesible y adaptable, consulta de datos reales y búsqueda con filtros y paginación sobre el catálogo de la API. También busca comprender cómo colaboran HTML, CSS y JavaScript y cómo se transforman las respuestas en tarjetas.
 
-Respuesta aplicada al proyecto: `applyFilters()` lee nombre, estado y especie y reinicia la página. `loadCharacters()` usa URLSearchParams y fetch; por ejemplo `?page=1&name=Rick&status=alive`. Tras response.json(), render dibuja los datos. Un 404 produce cero resultados; otros errores y el timeout muestran una explicación y el botón de reintento.
+### PROMPT 2: Favoritos, validaciones y errores
 
-### Prompt 3: persistencia y mejora alfabética
+> Ahora quiero agregar una sección de favoritos. Cada tarjeta debe permitir guardar o quitar al personaje y mostrar claramente si ya está guardado. Evita duplicados usando su identificador. La sección debe mostrar los personajes guardados y un mensaje cuando esté vacía.
+>
+> Usa localStorage para conservar los favoritos al recargar o cerrar y volver a abrir la página en el mismo navegador. Guarda los datos como JSON y recupéralos al iniciar. Revisa que un dato inválido o un problema de almacenamiento no provoque que toda la aplicación deje de funcionar. Si no se pueden conservar los cambios, avisa al usuario.
+>
+> Revisa también las consultas a la API. Mientras cargan, muestra un mensaje de carga. Si no hay coincidencias, muestra un mensaje específico y retira los resultados anteriores. Comprueba los códigos HTTP, porque una respuesta sin coincidencias no debe tratarse igual que un fallo del servidor o de conexión.
+>
+> Si una consulta falla o tarda demasiado, muestra una explicación y permite reintentar. Evita que una respuesta antigua reemplace los resultados de una búsqueda más reciente. Inserta los datos recibidos de forma segura, sin interpretarlos como HTML.
+>
+> Comprueba la búsqueda, los filtros combinados, la paginación y los favoritos después de recargar. Registra los errores reales y sus soluciones, y distingue las pruebas realizadas de las pendientes. Explícame la diferencia entre guardar datos temporalmente en JavaScript y conservarlos con localStorage.
 
-> Explícame cómo guardamos y recuperamos los favoritos con localStorage y cómo funciona la mejora de orden alfabético A-Z y Z-A. Señala qué funciones intervienen y qué debo entender para explicarlo en clase.
+**Propósito:** Añadir favoritos persistentes y fortalecer la fiabilidad de la aplicación. Esta etapa se centra en validar el almacenamiento y las respuestas, distinguir carga, ausencia de coincidencias y errores, evitar respuestas desactualizadas y registrar únicamente pruebas y problemas reales.
 
-Respuesta aplicada al proyecto: `saveFavorites()` convierte los valores del Map a JSON y los guarda; `readFavorites()` los lee, valida y reconstruye el Map. `visibleCharacters()` elige la página de la API o los favoritos filtrados. `orderedCharacters()` copia el arreglo antes de sort, compara con localeCompare y utiliza 1 o -1 para invertir el orden. Lo esencial para clase: memoria y almacenamiento son distintos; JSON permite almacenar objetos como texto; sort modifica el arreglo y por eso se copia; el orden del catálogo se limita a la página cargada.
+### PROMPT 3: Mejora posterior, publicación y documentación
+
+> Cuando la primera versión esté terminada y comprobada, quiero agregar como mejora un selector para ordenar los personajes de A-Z y Z-A y para recuperar el orden original.
+>
+> En los resultados de la API, el selector debe ordenar únicamente los personajes de la página actual. En favoritos debe ordenar la colección que se esté mostrando después de aplicar los filtros. Aclara este alcance en la interfaz para que no parezca que se ordena todo el catálogo de la API.
+>
+> Ordena una copia del arreglo para conservar el orden original. La mejora debe funcionar junto con la búsqueda, los filtros, la paginación y los favoritos, sin borrar datos ni ocultar los mensajes de carga o error.
+>
+> Haz esta mejora en una rama y crea un Pull Request con una explicación de los cambios y las comprobaciones. Revísalo antes de fusionarlo. Documenta al menos dos problemas o mejoras reales mediante Issues y comprueba que el proyecto tenga al menos seis commits con avances útiles.
+>
+> Publica la aplicación mediante GitHub Pages y comprueba la dirección publicada. Completa el README con mi nombre, descripción, tecnologías, instrucciones de uso, enlaces, uso de IA, una respuesta que haya necesitado correcciones, un error real con su solución y una modificación explicada.
+>
+> Prepara una propuesta de reflexión para que yo la revise y respuestas sencillas para explicar fetch, HTML, CSS, JavaScript, el buscador, los errores, los favoritos y la publicación. No inventes experiencias personales ni pruebas. Explica cómo funciona el código que realmente quedó en el proyecto.
+
+**Propósito:** Incorporar la ordenación como una mejora posterior que preserve el funcionamiento existente y su alcance por página o colección filtrada. Además, busca dejar evidencias del cambio mediante rama, Pull Request, Issues y commits, verificar la publicación y preparar documentación y explicaciones para la presentación sin inventar experiencias ni comprobaciones.
 
 ## Verificación final de la mejora publicada
 
