@@ -131,3 +131,25 @@ Preguntas clave: HTML organiza el contenido; CSS define su presentación; JavaSc
 - [MDN: localStorage](https://developer.mozilla.org/es/docs/Web/API/Window/localStorage)
 
 Proyecto académico sin afiliación oficial con Rick and Morty. Los personajes y sus imágenes corresponden a sus respectivos titulares.
+
+## Registro de tres prompts reales utilizados
+
+Este registro reúne el encargo inicial y las dos preguntas posteriores enviadas por la autora durante el desarrollo. Los fragmentos de contexto anteriores pertenecen al primer encargo.
+
+### Prompt 1: realizar la tarea respetando GitHub web
+
+> Ayúdame a realizar la tarea del PDF adjunto. Léelo completo antes de actuar.
+
+El mismo encargo incluyó la restricción de crear y modificar el código únicamente en GitHub web, inspeccionar los avances y explicar cada avance funcional. Resultado: lectura previa, revisión del repositorio y desarrollo por etapas con commits, Issues, rama, PR y Pages.
+
+### Prompt 2: consultas, buscador y errores
+
+> Explícame cómo utiliza fetch() nuestra aplicación para consultar la API de Rick and Morty, cómo se combina la búsqueda con los filtros y qué ocurre cuando no hay resultados o falla la consulta. Usa ejemplos del código del proyecto.
+
+Respuesta aplicada al proyecto: `applyFilters()` lee nombre, estado y especie y reinicia la página. `loadCharacters()` usa URLSearchParams y fetch; por ejemplo `?page=1&name=Rick&status=alive`. Tras response.json(), render dibuja los datos. Un 404 produce cero resultados; otros errores y el timeout muestran una explicación y el botón de reintento.
+
+### Prompt 3: persistencia y mejora alfabética
+
+> Explícame cómo guardamos y recuperamos los favoritos con localStorage y cómo funciona la mejora de orden alfabético A-Z y Z-A. Señala qué funciones intervienen y qué debo entender para explicarlo en clase.
+
+Respuesta aplicada al proyecto: `saveFavorites()` convierte los valores del Map a JSON y los guarda; `readFavorites()` los lee, valida y reconstruye el Map. `visibleCharacters()` elige la página de la API o los favoritos filtrados. `orderedCharacters()` copia el arreglo antes de sort, compara con localeCompare y utiliza 1 o -1 para invertir el orden. Lo esencial para clase: memoria y almacenamiento son distintos; JSON permite almacenar objetos como texto; sort modifica el arreglo y por eso se copia; el orden del catálogo se limita a la página cargada.
