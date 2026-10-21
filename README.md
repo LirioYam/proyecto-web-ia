@@ -2,7 +2,7 @@
 
 Explorador interactivo de personajes de Rick and Morty, construido con HTML, CSS y JavaScript y datos reales de una API pública.
 
-**Autora:** Lirio Berenice Chuc Yam · [@LirioYam](https://github.com/LirioYam). Modalidad individual, por decisión de la autora.
+**Autora:** Lirio Berenice Chuc Yam · [@LirioYam](https://github.com/LirioYam). 
 
 - [Aplicación en GitHub Pages](https://lirioyam.github.io/proyecto-web-ia/)
 - [Repositorio](https://github.com/LirioYam/proyecto-web-ia)
