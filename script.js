@@ -70,7 +70,7 @@ function visibleCharacters() {
   );
 }
 function render() {
-  const items = visibleCharacters();
+  const items = orderedCharacters(visibleCharacters());
   ui.grid.replaceChildren(...items.map(card));
   ui.favoriteCount.textContent = favorites.size;
   ui.count.textContent = state.favoritesView
@@ -212,3 +212,27 @@ ui.grid.addEventListener("click", (event) => {
   if (event.target.closest("button[data-id]")) saveFavorites();
 });
 readFavorites();
+
+// Reto de la segunda versión: orden alfabético de los resultados visibles.
+const orderField = node("div", "field");
+const orderLabel = node("label", "", "Orden de esta página / favoritos");
+orderLabel.htmlFor = "order";
+const orderSelect = node("select");
+orderSelect.id = "order";
+for (const [value, label] of [["original", "Orden original"], ["asc", "Nombre: A–Z"], ["desc", "Nombre: Z–A"]]) {
+  const option = node("option", "", label);
+  option.value = value;
+  orderSelect.append(option);
+}
+orderField.append(orderLabel, orderSelect);
+document.querySelector(".results-heading").append(orderField);
+orderSelect.addEventListener("change", () => {
+  // No renderizar durante una consulta: conservar el mensaje de carga o error.
+  if (state.favoritesView || ui.feedback.hidden) render();
+});
+function orderedCharacters(items) {
+  if (orderSelect.value === "original") return items;
+  const direction = orderSelect.value === "asc" ? 1 : -1;
+  // sort modifica el arreglo; spread crea una copia para conservar el orden de la API.
+  return [...items].sort((a, b) => direction * a.name.localeCompare(b.name, "es", { sensitivity: "base" }));
+}
